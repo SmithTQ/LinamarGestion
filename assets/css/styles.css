@@ -1,0 +1,40 @@
+@import url('./reset.css');
+@import url('./grid-system.css');
+@import url('./aside.css');
+@import url('./spacing.css');
+@import url('./button.css');
+@import url('./badge.css');
+@import url('./card.css');
+@import url('./table.css');
+@import url('./miselanea.css');
+
+body{
+    --theme-color: var(--bs-blue);
+    background-color: rgb(245, 245, 247);
+    font-family: Inter, "helvetica neue", Helvetica, Arial, sans-serif;
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+body::after{
+    content: "";
+    background-color: var(--theme-color) !important;
+    background-blend-mode: multiply;
+    /*background-image: url('https://img.freepik.com/foto-gratis/composicion-vista-superior-deliciosas-golosinas-desayuno_23-2148829547.jpg?t=st=1731893859~exp=1731897459~hmac=eb1946200d76b098a003729ff7207a08b64ffe670cf8c90b5a6e21f0421ad64f&w=1380');
+    background-position: center;*/
+    height: 30vh;
+    min-height: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: -1;
+}
+
+.material-symbols-rounded {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
+}
+

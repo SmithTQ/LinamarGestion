@@ -1,0 +1,155 @@
+@import url("./root.css");
+
+header{
+    margin-top: 1.5rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    width: 100%;
+}
+
+header > div{
+    align-items: center;
+    display: flex;
+    color: white;
+    flex-wrap: inherit;
+    justify-content: space-between;
+}
+
+header button{
+    padding: 0;
+}
+
+header .breadcrumb{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+header .breadcrumb > h5{
+    margin-bottom: 0 !important;
+}
+
+header .breadcrumb > ol{
+    font-size: 0.8rem;
+}
+
+header .navbar{
+    display: flex !important;
+    justify-content: flex-end;
+    align-items: center;
+    flex-basis: 100%;
+    flex-grow: 1;
+}
+
+aside{
+    height: 100vh;
+    padding: 1.5rem;
+    padding-right: 0rem;
+    position: fixed;
+    top: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    left: -282px;
+    width: 280px;
+    vertical-align: middle;
+}
+
+aside.open{
+    left: 0;
+}
+
+main{
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+aside.open ~ main{
+    padding-left: 280px;
+}
+
+
+
+aside > ul{
+    --bs-card-border-radius: var(--bs-border-radius-lg);
+    background-color: white;
+    border-radius: var(--bs-card-border-radius);
+    box-shadow: var(--bs-box-shadow-sm);
+    height: 100%;
+    width: 100%;
+}
+
+.header-aside{
+    display: flex;
+    padding: 1rem;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.header-aside img{
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    box-shadow: var(--bs-box-shadow-sm);
+}
+
+.header-aside div{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: bold;
+    padding-left: 0.75rem;
+    width: calc(100% - 45px);
+    vertical-align: middle;
+}
+
+.header-aside div > span{
+    font-size: 0.8rem;
+    margin-top: -10px;
+    color: rgba(0,0,0,0.5);
+    white-space: nowrap;       
+    overflow: hidden;         
+    text-overflow: ellipsis;
+}
+
+aside > ul > li{
+    width: 100%;
+    text-decoration: none;
+    padding: 0rem 0.5rem;
+}
+
+aside > ul > li > div{
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+aside > ul > li > a{
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    width: 100%;
+    text-decoration: none;
+    border-radius: var(--bs-border-radius-sm);
+}
+
+aside > ul > li > a:hover{
+    background-color: var(--bs-hover);
+    box-shadow: none;
+}
+
+aside > ul > li.active > a{
+    background-color: var(--bs-hover);
+    font-weight: bold;
+}
+
+aside > ul > li.active > a span{
+    color: var(--theme-color);
+    font-weight: bold;
+}
+
+aside > ul > li > a span{
+    color: rgba(0,0,0,0.5);
+    margin-right: 0.75rem;
+}
+
+aside > ul > li > a div{
+    color: rgba(0,0,0,0.5);
+}

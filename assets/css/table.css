@@ -1,0 +1,240 @@
+@import url('./root.css');
+
+.table-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.table-container .header-table{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 10px;
+    width: 100%;
+}
+
+.content-pagination-table{
+    align-content: flex-start;
+}
+
+.table-container .header-table label{
+    font-weight: bolder;
+}
+
+.table-container .header-table > input,.table-container .header-table > select{
+    max-width: 150px;
+    margin-bottom: 0;
+    padding: 10px;
+}
+
+/* PAGINATION BUTTONS */
+
+.table-container .footer-table{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.table-container .footer-table .content-pagination{
+    float: right;
+}
+
+.table-container .footer-table .content-pagination > ul{
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.table-container .footer-table .content-pagination > ul > li > a{
+    background-color: rgba(0,0,0,0.07);
+    border-radius: 28px;
+    color: rgba(72, 72, 72, 0.8);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+
+.table-container .footer-table .content-pagination > ul > li > .active{
+    --bg-row-table: var(--bs-gray-600);
+    background-color: var(--bg-row-table);
+    color: white;
+    font-weight: bolder;
+}
+
+.dt-paging nav{
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.dt-paging .dt-paging-button{
+    background-color: rgba(0,0,0,0.07) !important;
+    border-radius: 28px !important;
+    color: rgba(72, 72, 72, 0.8);
+    width: 35px !important;
+    height: 35px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-decoration: none !important;
+}
+.dt-paging .current{
+    background-color: var(--bs-gray-600) !important;
+    color: white !important;
+    font-weight: bolder;
+}
+
+.dt-layout-start{
+    padding-left: 1rem!important;
+}
+
+.dt-layout-end{
+    padding-right: 1rem;
+}
+
+div.dt-container.dt-empty-footer tbody>tr:last-child>*{
+    border-bottom: none;
+}
+
+div.dt-container.dt-empty-footer tbody>tr:last-child>*{
+    border-top: none;
+}
+
+/* END PAGINATION BUTTONS */
+
+
+/* TABLE */
+
+table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: #fff;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+table * {
+    position: relative;
+}
+
+table thead tr {
+    --bg-row-table: var(--bs-gray-600);
+    color: var(--bs-gray-500);
+    border-bottom: 1px solid;
+    border-color: #e9ecef;
+    font-weight: 700 !important;
+    font-size: .75rem !important;
+    padding: .75rem 1.5rem;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-bottom: 1px solid;
+    border-color: #e9ecef;
+}
+
+th {
+    text-align: left;
+    padding: 15px;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tbody tr {
+    font-size: 15px;
+    height: 50px;
+    color: gray;
+    line-height: 1.2;
+    font-weight: unset;
+}
+
+tbody tr:hover{
+    background-color: rgba(0,0,0,0.03);
+    z-index: 99;
+}
+
+tbody tr td {
+    padding: .5rem;
+    vertical-align: middle;
+}
+
+.align-left{
+    text-align: left;
+}
+
+.align-center{
+    text-align: center;
+}
+
+.align-right{
+    text-align: right;
+}
+
+
+/* OPTION BUTTONS */
+
+tbody tr .options-td{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 8px;
+}
+
+tbody tr td > .btn-table{
+    color: white;
+    cursor: pointer;
+    border: 0;
+    border-radius: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    text-decoration: none;
+    padding: 10px 18px;
+    width: auto;
+}
+
+/* END TABLE */
+
+
+
+tbody tr td > .btn-icon-table{
+    color: white;
+    cursor: pointer;
+    border: 0;
+    border-radius: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 10px 10px;
+    width: auto;
+}
+
+.word-warp{
+    border-collapse: collapse;
+}
