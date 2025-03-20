@@ -32,7 +32,6 @@ class ControladorUsuarios extends Controller {
 
         $query = "SELECT * FROM tb_usuarios WHERE LOWER(vcNombreUsuario) = ? OR LOWER(vcCorreoUsuario) = ?";
         $usuario = $usuarioModel->first($query, [strtolower($request->vcNombreUsuario), strtolower($request->vcCorreoUsuario)]);
-        //$usuario = $usuarioModel->where("LOWER(vcNombreUsuario)", "=", strtolower($request->vcNombreUsuario))->orWhere("LOWER(vcCorreoUsuario)", "=", strtolower($request->vcCorreoUsuario))->get();
 
         if ($usuario) {
             return new Respuesta(EMensajes::ERROR, "El usuario ó correo ya se encuntra registrado.");

@@ -35,23 +35,31 @@ let vistaRegistrarDetalles = {
                     if (!vistaRegistrarDetalles.controles.idDetalle.length) {
                         vistaRegistrarDetalles.controles.formDetalle.find('input').val('');
                     }
-                    swal('Correcto', respuesta.mensaje, 'success');
-                    
-                    //$(vistaListarDetalle.destroy());
-                    //setTimeout(() => {
+                    Swal.fire({
+                        title: 'Correcto',
+                        text: respuesta.mensaje,
+                        icon: 'success'
+                    }).then(() => {
                         $(vistaListarDetalle.init);
-                    //}, 1000);
-                    
+                    });
                     return;
                 }
-                swal('Error', respuesta.mensaje, 'error');
+                Swal.fire({
+                    title: 'Error',
+                    text: respuesta.mensaje,
+                    icon: 'error'
+                });
             },
             consultarPorIdCompleto: function (respuesta) {
                 if (__app.validarRespuesta(respuesta)) {
-                    vistaRegistrarDetalles.controles.formDetalle.fillForm(respuesta.datos)
+                    vistaRegistrarDetalles.controles.formDetalle.fillForm(respuesta.datos);
                     return;
                 }
-                swal('Error', respuesta.mensaje, 'error');
+                Swal.fire({
+                    title: 'Error',
+                    text: respuesta.mensaje,
+                    icon: 'error'
+                });
             }
         }
     },
@@ -64,25 +72,25 @@ let vistaRegistrarDetalles = {
             }
 
             __app.post(url, obj)
-                    .beforeSend(vistaRegistrarDetalles.callbacks.peticiones.beforeSend)
-                    .complete(vistaRegistrarDetalles.callbacks.peticiones.completo)
-                    .success(vistaRegistrarDetalles.callbacks.peticiones.finalizado)
-                    .error(vistaRegistrarDetalles.callbacks.peticiones.finalizado)
-                    .send();
+                .beforeSend(vistaRegistrarDetalles.callbacks.peticiones.beforeSend)
+                .complete(vistaRegistrarDetalles.callbacks.peticiones.completo)
+                .success(vistaRegistrarDetalles.callbacks.peticiones.finalizado)
+                .error(vistaRegistrarDetalles.callbacks.peticiones.finalizado)
+                .send();
         },
         consultarDetallePorId: function (id) {
-            if(!id) {
+            if (!id) {
                 return;
             }
 
             __app.post(RUTAS_API.DETALLES.CONSULTAR_DETALLE_POR_ID, {
                 idDetalle: id,
             })
-                    .beforeSend(vistaRegistrarDetalles.callbacks.peticiones.beforeSend)
-                    .complete(vistaRegistrarDetalles.callbacks.peticiones.completo)
-                    .success(vistaRegistrarDetalles.callbacks.peticiones.consultarPorIdCompleto)
-                    .error(vistaRegistrarDetalles.callbacks.peticiones.consultarPorIdCompleto)
-                    .send();
+                .beforeSend(vistaRegistrarDetalles.callbacks.peticiones.beforeSend)
+                .complete(vistaRegistrarDetalles.callbacks.peticiones.completo)
+                .success(vistaRegistrarDetalles.callbacks.peticiones.consultarPorIdCompleto)
+                .error(vistaRegistrarDetalles.callbacks.peticiones.consultarPorIdCompleto)
+                .send();
         }
     }
 };

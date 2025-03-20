@@ -12,6 +12,7 @@ class EMensajes {
     const ERROR_ELIMINACION = "ERROR_ELIMINACION";
     const NO_HAY_REGISTROS = "NO_HAY_REGISTROS";
     const ERROR_CONEXION_BD = "ERROR_CONEXION_BD";
+    const NO_AUTORIZADO = "NO_AUTORIZADO";
 
     public static function getMensaje($codigo) {
         switch ($codigo) {
@@ -35,6 +36,8 @@ class EMensajes {
                 return new Respuesta(0, "No hay registros.");
             case EMensajes::ERROR_CONEXION_BD:
                 return new Respuesta(-1, "Error al conectar con la base de datos.");
+            case EMensajes::NO_AUTORIZADO:
+                return new Respuesta(-2, "No autorizado.");
         }
     }
 

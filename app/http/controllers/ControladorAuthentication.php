@@ -8,7 +8,14 @@ use Firebase\JWT\Key;
 
 class ControladorAuthentication extends Controller {
 
-    private $secretKey = '8765421'; // Cambia esto por una clave secreta segura
+    private $secretKey = '4b3403665fea6bfb1b9e6e8d7a9f8e7c4b3403665fea6bfb1b9e6e8d7a9f8e7c'; // Cambia esto por una clave secreta segura
+
+    public function index() {
+        $variables = [
+            "titulo" => "Login | Linamar"
+        ];
+        return $this->view("login/login", $variables);
+    }
 
     public function login(Request $request) {
 

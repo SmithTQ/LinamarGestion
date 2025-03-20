@@ -28,15 +28,19 @@ class ControladorDistritosLima extends Controller {
     }
 
     public function listarDistritosLima() {
-        $distritosLimaModel = new DistritosLima();
-        $lista = $distritosLimaModel->where("inIdprovincia", "=", "1501")->get();
+        return $this->authMiddleware->handle($request, function($request) {
 
-        $v = count($lista);
+            $distritosLimaModel = new DistritosLima();
+            $lista = $distritosLimaModel->where("inIdprovincia", "=", "1501")->get();
 
-        $respuesta = new Respuesta($v ? EMensajes::CORRECTO : EMensajes::ERROR);
-        $respuesta->setDatos($lista);
+            $v = count($lista);
 
-        return $respuesta;
+            $respuesta = new Respuesta($v ? EMensajes::CORRECTO : EMensajes::ERROR);
+            $respuesta->setDatos($lista);
+
+            return $respuesta;
+            
+        });
     }
 
     public function buscarDistritosLimaPorId(Request $request) {

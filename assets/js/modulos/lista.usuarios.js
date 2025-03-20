@@ -21,34 +21,33 @@ let vistaListarUsuario = {
         console.log('btnEliminar', btnEliminar);
         console.log('id', btnEliminar.data('id'));
 
-        swal(
-          {
-            title: 'Estás seguro?',
-            text: 'Esta acción no se puede deshacer',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar',
-            closeOnConfirm: false,
-          },
-          function (confirmado) {
-            if (confirmado) {
-              vistaListarUsuario.peticiones.eliminarUsuarioPorId(idUsuario);
-            }
+        Swal.fire({
+          title: '¿Estás seguro?',
+          text: 'Esta acción no se puede deshacer',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Sí, eliminar',
+          cancelButtonText: 'Cancelar',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            vistaListarUsuario.peticiones.eliminarUsuarioPorId(idUsuario);
           }
-        );
+        });
       },
     },
     peticiones: {
       eliminarUsuarioPorId: {
         completo: function (respuesta) {
           const v = __app.validarRespuesta(respuesta);
-          swal(
-            v ? 'Correcto' : 'Error',
-            respuesta.mensaje,
-            v ? 'success' : 'error'
-          );
-          v && vistaListarUsuario.peticiones.listarUsuarios();
+          Swal.fire({
+            title: v ? 'Correcto' : 'Error',
+            text: respuesta.mensaje,
+            icon: v ? 'success' : 'error',
+          }).then(() => {
+            if (v) {
+              vistaListarUsuario.peticiones.listarUsuarios();
+            }
+          });
         },
       },
       listarUsuarios: {

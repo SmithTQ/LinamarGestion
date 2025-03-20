@@ -1,15 +1,19 @@
 <?php
 
 require_once 'App\Http\Controllers\hooks\Hooks.php';
+require_once 'app/libraries/firebase/JWT/JWT.php';
+require_once 'app/libraries/firebase/JWT/Key.php';
 
 class ControladorDetalles extends Controller {
     
     private $hooks;
     private $contanerImagenes = "/assets/images/archivos/detalles/";
+    private $authMiddleware;
 
     function __construct() {
         parent::__construct();     
         $this->hooks = new Hooks();
+        $this->authMiddleware = new AuthMiddleware();
     }
 
     public function index() {
@@ -34,56 +38,63 @@ class ControladorDetalles extends Controller {
     }
 
     public function registrarDetalle(Request $request) {
+        return $this->authMiddleware->handle($request, function($request) {
+            
+            $detalleModel = new Detalles();
 
-        $detalleModel = new Detalles();
+            $detalle = $detalleModel->where("vcNombreDetalle", "=", $request->vcNombreDetalle)->first();
+            if ($detalle) {
+                return new Respuesta(EMensajes::ERROR, "Ya se encuentra registrado un detalle con el mismo nombre.");
+            }
 
-        $detalle = $detalleModel->where("vcNombreDetalle", "=", $request->vcNombreDetalle)->first();
-        if ($detalle) {
-            return new Respuesta(EMensajes::ERROR, "Ya se encuentra registrado un detalle con el mismo nombre.");
-        }
+            $request = $this->getRequestDetalle($request);
+            $id = $detalleModel->insert($request->all());
+            $v = ($id > 0);
 
-        $request = $this->getRequestDetalle($request);
-        $id = $detalleModel->insert($request->all());
-        $v = ($id > 0);
+            // Insertar precio detalle
+            $idPrecio = 0;
+            $v2 = false;
+            if($v){
+                $idPrecio = $this->registrarPrecioDetalle($request, $id);
+                $image = $this->hooks->guardarImagen($_FILES['imagen'], $id, "assets/images/archivos/detalles/");
+            }
+            $v2 = ($idPrecio > 0);
 
-        // Insertar precio detalle
-        $idPrecio = 0;
-        $v2 = false;
-        if($v){
-            $idPrecio = $this->registrarPrecioDetalle($request, $id);
-            $image = $this->hooks->guardarImagen($_FILES['imagen'], $id, "assets/images/archivos/detalles/");
-        }
-        $v2 = ($idPrecio > 0);
+            $respuesta = new Respuesta($v && $v2? EMensajes::INSERCION_EXITOSA : EMensajes::ERROR_INSERSION);
+            $respuesta->setDatos($id);
 
-        $respuesta = new Respuesta($v && $v2? EMensajes::INSERCION_EXITOSA : EMensajes::ERROR_INSERSION);
-        $respuesta->setDatos($id);
-
-        return $respuesta;
+            return $respuesta;
+            
+        });
     }
 
     private function registrarPrecioDetalle(Request $request, $idDetalle) {
-        $precioDetalleModel = new PrecioDetalles();
+            $precioDetalleModel = new PrecioDetalles();
 
-        $request = $this->getRequestPrecioDetalle($request, $idDetalle);
-        $id = $precioDetalleModel->insert($request->all());
-        $v = ($id > 0);
+            $request = $this->getRequestPrecioDetalle($request, $idDetalle);
+            $id = $precioDetalleModel->insert($request->all());
+            $v = ($id > 0);
 
-        return $v;
+            return $v;
     }
 
-    public function listarDetalles() {
-        $listDetallesModel = new ListDetalles();
+    public function listarDetalles(Request $request) {
+        return $this->authMiddleware->handle($request, function($request) {
+            
+            $listDetallesModel = new ListDetalles();
+            
+            $query = "SELECT d.*, COALESCE(pd.inSolPrecioDetalle, '0.00') as inSolPrecioDetalle, COALESCE(pd.inDolarPrecioDetalle, '0.00') as inDolarPrecioDetalle  FROM tb_detalles d
+                        left join tb_preciodetalles pd on d.inIdDetalle = pd.inIdDetalle order by d.tsFechaCreacion desc";
+            $lista = $listDetallesModel->get($query);
+            
+            $v = count($lista);
+            
+            $respuesta = new Respuesta($v ? EMensajes::CORRECTO : EMensajes::ERROR);
+            $respuesta->setDatos($lista);
 
-        $query = "SELECT d.*, COALESCE(pd.inSolPrecioDetalle, '0.00') as inSolPrecioDetalle, COALESCE(pd.inDolarPrecioDetalle, '0.00') as inDolarPrecioDetalle  FROM tb_detalles d
-                    left join tb_preciodetalles pd on d.inIdDetalle = pd.inIdDetalle order by d.tsFechaCreacion desc";
-        $lista = $listDetallesModel->get($query);
+            return $respuesta;
 
-        $v = count($lista);
-
-        $respuesta = new Respuesta($v ? EMensajes::CORRECTO : EMensajes::ERROR);
-        $respuesta->setDatos($lista);
-
-        return $respuesta;
+        });
     }
 
     public function buscarDetallePorId(Request $request) {

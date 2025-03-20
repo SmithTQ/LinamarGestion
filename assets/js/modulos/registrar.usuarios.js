@@ -35,18 +35,31 @@ let vistaRegistrarUsuario = {
                     if (!vistaRegistrarUsuario.controles.idUsuario.length) {
                         vistaRegistrarUsuario.controles.formUsuario.find('input').val('');
                     }
-                    swal('Correcto', respuesta.mensaje, 'success');
-                    $(vistaListarUsuario.init);
+                    Swal.fire({
+                        title: 'Correcto',
+                        text: respuesta.mensaje,
+                        icon: 'success'
+                    }).then(() => {
+                        $(vistaListarUsuario.init);
+                    });
                     return;
                 }
-                swal('Error', respuesta.mensaje, 'error');
+                Swal.fire({
+                    title: 'Error',
+                    text: respuesta.mensaje,
+                    icon: 'error'
+                });
             },
             consultarPorIdCompleto: function (respuesta) {
                 if (__app.validarRespuesta(respuesta)) {
-                    vistaRegistrarUsuario.controles.formUsuario.fillForm(respuesta.datos)
+                    vistaRegistrarUsuario.controles.formUsuario.fillForm(respuesta.datos);
                     return;
                 }
-                swal('Error', respuesta.mensaje, 'error');
+                Swal.fire({
+                    title: 'Error',
+                    text: respuesta.mensaje,
+                    icon: 'error'
+                });
             }
         }
     },
@@ -59,25 +72,25 @@ let vistaRegistrarUsuario = {
             }
 
             __app.post(url, obj)
-                    .beforeSend(vistaRegistrarUsuario.callbacks.peticiones.beforeSend)
-                    .complete(vistaRegistrarUsuario.callbacks.peticiones.completo)
-                    .success(vistaRegistrarUsuario.callbacks.peticiones.finalizado)
-                    .error(vistaRegistrarUsuario.callbacks.peticiones.finalizado)
-                    .send();
+                .beforeSend(vistaRegistrarUsuario.callbacks.peticiones.beforeSend)
+                .complete(vistaRegistrarUsuario.callbacks.peticiones.completo)
+                .success(vistaRegistrarUsuario.callbacks.peticiones.finalizado)
+                .error(vistaRegistrarUsuario.callbacks.peticiones.finalizado)
+                .send();
         },
         consultarUsuarioPorId: function (id) {
-            if(!id) {
+            if (!id) {
                 return;
             }
 
             __app.post(RUTAS_API.USUARIOS.CONSULTAR_USUARIO_POR_ID, {
                 idUsuario: id,
             })
-                    .beforeSend(vistaRegistrarUsuario.callbacks.peticiones.beforeSend)
-                    .complete(vistaRegistrarUsuario.callbacks.peticiones.completo)
-                    .success(vistaRegistrarUsuario.callbacks.peticiones.consultarPorIdCompleto)
-                    .error(vistaRegistrarUsuario.callbacks.peticiones.consultarPorIdCompleto)
-                    .send();
+                .beforeSend(vistaRegistrarUsuario.callbacks.peticiones.beforeSend)
+                .complete(vistaRegistrarUsuario.callbacks.peticiones.completo)
+                .success(vistaRegistrarUsuario.callbacks.peticiones.consultarPorIdCompleto)
+                .error(vistaRegistrarUsuario.callbacks.peticiones.consultarPorIdCompleto)
+                .send();
         }
     }
 };

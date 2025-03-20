@@ -7,7 +7,16 @@ var __app = {
         return __app.urlbase + url;
     },
     validarRespuesta: function (respuesta) {
-        if ((respuesta && !respuesta.codigo) || respuesta.codigo < 0) {
+        if (respuesta.codigo === -2) {
+            Swal.fire({
+                title: 'Sesión caducada',
+                text: 'Tu sesión ha caducado, inicia sesión nuevamente',
+                icon: 'warning',
+            }).then(() => {
+                location.href = __app.urlTo('login');
+            });
+            return false;
+        }else if ((respuesta && !respuesta.codigo) || respuesta.codigo < 0) {
             respuesta = false;
         }
         return respuesta;
@@ -60,47 +69,16 @@ var __app = {
             return this;
         },
         send: function () {
-            __app.ajax(this.ajax);
-
-           /*  __app.ajax = function (args) {
-                var ajax = {};
-                ajax.url = (__app.urlbase + args.url);
-                ajax.type = args.type ? args.type : "POST";
-                ajax.dataType = args.dataType ? args.dataType : "json";
-                ajax.beforeSend = args.beforeSend;
-                ajax.complete = args.complete;
-                ajax.success = args.success;
-                ajax.error = args.error;
-            
-                // Detectar si args.data contiene un File o Blob
-                let containsFile = false;
-                if (args.data instanceof FormData) {
-                    ajax.data = args.data; // Si ya es FormData, se usa directamente
-                    containsFile = true;
-                } else if (typeof args.data === "object" && args.data !== null) {
-                    for (let key in args.data) {
-                        if (args.data[key] instanceof File || args.data[key] instanceof Blob) {
-                            containsFile = true;
-                            break;
-                        }
-                    }
-                }
-            
-                // Si hay un archivo, usar FormData
-                if (containsFile) {
-                    let formData = new FormData();
-                    for (let key in args.data) {
-                        formData.append(key, args.data[key]);
-                    }
-                    ajax.data = formData;
-                    ajax.processData = false;
-                    ajax.contentType = false;
+            // Configurar token en cada petición AJAX
+            this.ajax.beforeSend = function (xhr) {
+                const token = sessionStorage.getItem('authToken');
+                if (!token) {
+                    console.warn('Token no encontrado en sessionStorage');
                 } else {
-                    ajax.data = args.data; // Enviar datos normalmente si no hay archivos
+                    xhr.setRequestHeader('Authorization', `Bearer ${token}`);
                 }
-            
-                $.ajax(ajax);
-            }; */
+            };
+            __app.ajax(this.ajax);
         }
     },
     getObjectAjax: function (url, data, method) {

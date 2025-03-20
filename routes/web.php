@@ -25,4 +25,5 @@ Route::post("/detalles/consultarDistritoLimaPorId", ControladorDetalles::class."
 Route::post("/detalles/eliminarDistritoLimaPorId", ControladorDetalles::class."@eliminarDistritosLimaPorId");
 
 // -- Login
+Route::GET("/login", ControladorAuthentication::class."@index");
 Route::POST("/login", ControladorAuthentication::class."@login");
