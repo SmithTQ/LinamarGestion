@@ -10,8 +10,8 @@ Route::get("/usuarios/form/edicion/:id", ControladorUsuarios::class."@formEdicio
 Route::post("/usuarios/registrar", ControladorUsuarios::class."@insertarUsuario");
 
 // -- DistritosLima
-Route::get("/listar", ControladorDistritosLima::class."@index");
-Route::get("/listar_distritoslima", ControladorDistritosLima::class);
+Route::get("/distritos/listar", ControladorDistritosLima::class."@index");
+Route::get("/distritos/listar_distritoslima", ControladorDistritosLima::class."@listarDistritosLima");
 Route::post("/distritos/actualizar", ControladorDistritosLima::class."@actualizarDistritoLima");
 Route::post("/distritos/consultarDistritoLimaPorId", ControladorDistritosLima::class."@buscarDistritosLimaPorId");
 Route::post("/distritos/eliminarDistritoLimaPorId", ControladorDistritosLima::class."@eliminarDistritosLimaPorId");

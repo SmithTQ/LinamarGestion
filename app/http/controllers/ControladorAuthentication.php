@@ -1,7 +1,11 @@
 <?php
 
-require_once 'app/libraries/firebase/JWT/JWT.php';
-require_once 'app/libraries/firebase/JWT/Key.php';
+require_once 'app/libraries/JWT/JWTExceptionWithPayloadInterface.php';
+require_once 'app/libraries/JWT/ExpiredException.php';
+require_once 'app/libraries/JWT/SignatureInvalidException.php';
+require_once 'app/libraries/JWT/BeforeValidException.php';
+require_once 'app/libraries/JWT/JWT.php';
+require_once 'app/libraries/JWT/Key.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

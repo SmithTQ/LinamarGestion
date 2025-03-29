@@ -53,6 +53,6 @@
         <script src="<?= URL::to("assets/js/global/rutas.api.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/js/global/app.global.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/sweetalert/sweetalert.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/js/modulos/registrar.usuarios.js") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/js/modulos/usuarios/registrar.usuarios.js") ?>" type="text/javascript"></script>
     </body>
 </html>

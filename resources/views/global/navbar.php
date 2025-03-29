@@ -8,44 +8,28 @@
                 </div>
             </li>
             <hr class="horizontal dark mt-0">
-            <li>
-                <div>Campañas</div>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="material-symbols-rounded">
-                        orders
-                    </span>
-                    <div>Pedidos</div>
-                </a>
-            </li>
-            <li>
-                <div>Administración</div>
-            </li>
-            <li class="active">
-                <a href="#">
-                    <span class="material-symbols-rounded">
-                        map
-                    </span>
-                    <div>Distritos</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="material-symbols-rounded">
-                        person
-                    </span>
-                    <div>Clientes</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="material-symbols-rounded">
-                        map
-                    </span>
-                    <div>Distrito</div>
-                </a>
-            </li>
+
+            <?php foreach ($menuItems as $section => $item):?>
+                
+                <!-- SECCIONES -->
+                <li>
+                    <div><?= $section ?></div>
+                </li>
+
+                <!-- ITEMS DENTRO DE CADA SECCIÓN -->
+                <?php foreach ($item as $key => $value):?>
+                    <li class="<?= $key == $activeItem ? "active" : "" ?>">
+                        <a href="<?= $key == $activeItem ? "#" : URL::to($value["Uri"]) ?>">
+                            <span class="material-symbols-rounded">
+                                <?= $value["Icon"] ?>
+                            </span>
+                            <div><?= $key ?></div>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+
+            <?php endforeach; ?>
+            
 
         </ul>
     </aside>

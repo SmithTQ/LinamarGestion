@@ -9,7 +9,7 @@
 @import url('./miselanea.css');
 
 body{
-    --theme-color: var(--bs-blue);
+    --theme-color: var(--bs-orange);
     background-color: rgb(245, 245, 247);
     font-family: Inter, "helvetica neue", Helvetica, Arial, sans-serif;
     transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -17,10 +17,12 @@ body{
 
 body::after{
     content: "";
+    /* background-color: var(--theme-color) !important; */
     background-color: var(--theme-color) !important;
-    background-blend-mode: multiply;
-    /*background-image: url('https://img.freepik.com/foto-gratis/composicion-vista-superior-deliciosas-golosinas-desayuno_23-2148829547.jpg?t=st=1731893859~exp=1731897459~hmac=eb1946200d76b098a003729ff7207a08b64ffe670cf8c90b5a6e21f0421ad64f&w=1380');
-    background-position: center;*/
+    /* background-blend-mode: multiply; */
+    /* background-image: url('https://images.pexels.com/photos/27866532/pexels-photo-27866532/free-photo-of-paisaje-naturaleza-cielo-puesta-de-sol.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); */
+    background-position: center;
+    background-size: cover;
     height: 30vh;
     min-height: 200px;
     position: fixed;

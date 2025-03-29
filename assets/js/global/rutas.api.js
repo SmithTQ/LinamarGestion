@@ -7,7 +7,7 @@ var RUTAS_API = {
         ELIMINAR_USUARIO_POR_ID: 'usuarios/eliminarUsuarioPorId',
     },
     DISTRITOSLIMA: {
-        LISTAR: 'listar_distritoslima',
+        LISTAR: 'distritos/listar_distritoslima',
         REGISTRAR_DISTRITOLIMA: 'distritos/registrar',
         CONSULTAR_DISTRITOLIMA_POR_ID: 'distritos/consultarDistritoLimaPorId',
         ACTUALIZAR_DISTRITOLIMA: 'distritos/actualizar',

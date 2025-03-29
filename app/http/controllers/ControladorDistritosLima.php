@@ -1,16 +1,25 @@
 <?php
+require_once 'app/libraries/firebase/JWT/JWT.php';
+require_once 'app/libraries/firebase/JWT/Key.php';
+
 
 class ControladorDistritosLima extends Controller {
 
+    private $menuGenerator;
+    private $authMiddleware;
+
     function __construct() {
         parent::__construct();
+        $this->authMiddleware = new AuthMiddleware();
+        $this->menuItems = new MenuItems();
     }
 
     public function index() {
         $variables = [
             "titulo" => "Distritos Lima | LinaMar",
-            "navbar" => $this->view("global/navbar"),
-            "header" => $this->view("global/header", ["titulo" => "DISTRITOS"])
+            "navbar" => $this->view("global/navbar", ["menuItems" => $this->menuItems->items, "activeItem" => "Distritos"]),
+            "header" => $this->view("global/header", ["titulo" => "DISTRITOS"]),
+            "uri" => "distritos/listardistritoslima"
         ];
         return $this->view("distritos/listardistritoslima", $variables);
     }
@@ -27,7 +36,7 @@ class ControladorDistritosLima extends Controller {
         return $this->view("distritos/registrardistritoslima", $variables);
     }
 
-    public function listarDistritosLima() {
+    public function listarDistritosLima(Request $request) {
         return $this->authMiddleware->handle($request, function($request) {
 
             $distritosLimaModel = new DistritosLima();

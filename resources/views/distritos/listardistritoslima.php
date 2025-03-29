@@ -110,7 +110,7 @@
         <script src="<?= URL::to("assets/js/global/rutas.api.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/js/global/app.global.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/sweetalert/sweetalert.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/js/modulos/lista.distritoslima.js") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/js/modulos/distritos/lista.distritoslima.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/DataTables/datatables.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/DataTables/datatables.responsive.js") ?>" type="text/javascript"></script>
     </body>

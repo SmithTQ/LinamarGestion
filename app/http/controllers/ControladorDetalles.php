@@ -1,25 +1,27 @@
 <?php
 
 require_once 'App\Http\Controllers\hooks\Hooks.php';
-require_once 'app/libraries/firebase/JWT/JWT.php';
-require_once 'app/libraries/firebase/JWT/Key.php';
+require_once 'app/libraries/JWT/JWT.php';
+require_once 'app/libraries/JWT/Key.php';
 
 class ControladorDetalles extends Controller {
     
     private $hooks;
-    private $contanerImagenes = "/assets/images/archivos/detalles/";
     private $authMiddleware;
+
+    private $contanerImagenes = "/assets/images/archivos/detalles/";
 
     function __construct() {
         parent::__construct();     
         $this->hooks = new Hooks();
         $this->authMiddleware = new AuthMiddleware();
+        $this->menuItems = new MenuItems();
     }
 
     public function index() {
         $variables = [
             "titulo" => "Detalles | Linamar",
-            "navbar" => $this->view("global/navbar"),
+            "navbar" => $this->view("global/navbar", ["menuItems" => $this->menuItems->items, "activeItem" => "Detalles"]),
             "header" => $this->view("global/header", ["titulo" => "DETALLES"])
         ];
         return $this->view("detalles/listardetalles", $variables);
@@ -27,14 +29,6 @@ class ControladorDetalles extends Controller {
 
     public function formCrearDetalles() {
         return $this->view("detalles/detalle");
-    }
-
-    public function formEdicionDetalle($id) {
-        $variables = [
-            "titulo" => "Actualizar Detalle",
-            "idDetalle" => base64_decode($id)
-        ];
-        return $this->view("detalles/registrardetalle", $variables);
     }
 
     public function registrarDetalle(Request $request) {
