@@ -6,10 +6,12 @@
 @import url('./badge.css');
 @import url('./card.css');
 @import url('./table.css');
+@import url('./tabs.css');
 @import url('./miselanea.css');
 
 body{
-    --theme-color: var(--bs-orange);
+    --theme-color: var(--bs-purple);
+    --bs-primary: var(--theme-color);
     background-color: rgb(245, 245, 247);
     font-family: Inter, "helvetica neue", Helvetica, Arial, sans-serif;
     transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -40,3 +42,34 @@ body::after{
       'opsz' 48
 }
 
+.color-red{
+    color: var(--bs-red) !important;
+}
+
+.color-green{
+    color: var(--bs-green) !important;
+}
+
+.color-blue{
+    color: var(--bs-blue) !important;
+}
+
+.color-yellow{
+    color: var(--bs-yellow) !important;
+}
+
+.color-orange{
+    color: var(--bs-orange) !important;
+}
+
+.color-purple{
+    color: var(--bs-purple) !important;
+}
+
+.color-pink{
+    color: var(--bs-pink) !important;
+}
+
+.color-teal{
+    color: var(--bs-teal) !important;
+}

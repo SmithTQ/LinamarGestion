@@ -12,6 +12,28 @@
         <link rel="stylesheet" href="<?= URL::to("assets/css/styles.css") ?>" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="<?= URL::to("assets/css/form.css") ?>" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="<?= URL::to("assets/css/modal.css") ?>" rel="stylesheet" type="text/css"/>
+
+        <style>
+            .form-container {
+                background: white;
+                border-radius: 8px;
+                padding: 2rem;
+                max-width: 800px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            .form-header {
+                border-left: 8px solid #673ab7;
+                padding-left: 1rem;
+                margin-bottom: 2rem;
+            }
+            .question {
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                background: #fafafa;
+            }
+        </style>
     </head>
     <body data-urlbase="<?= URL::base() ?>">
         <?= $navbar ?>
@@ -21,25 +43,23 @@
                 <div class="col-12 px-4 mt-4">
                     <div class="card card-float">
                         <div class="card-header pb-0">
-                            <h5 class="card-title">Listar Detalles</h5>
+                            <h5 class="card-title">Lista de formularios</h5>
                             <hr>
                         </div>
                         <div class="row">
                             <div class="col-12 container-button flex-start my-2 mx-4">
-                                <button type="button" class="btn-modal btn btn-primary" data-id-modal="#modal-crear-detalle">
-                                    Registrar Detalle
+                                <button type="button" class="btn-modal btn btn-primary" data-id-modal="#modal-crear-formulario">
+                                    Crear Formulario
                                 </button>
                             </div>
                         </div>
                         <div class="card-body px-0">
-                            <table class="table table-condensed table-hover table-striped display nowrap" id="tablaListaDetalles">
+                            <table class="table table-condensed table-hover table-striped display nowrap" id="tablaListaFormularios">
                                 <thead class="">
                                     <tr>
-                                        <th>Código</th>
-                                        <th>Nombre Det.</th>
-                                        <th>Precio Sol</th>
-                                        <th>Precio Dolar</th>
-                                        <th>Registrado</th>
+                                        <th>Cod.</th>
+                                        <th>Nombre Formulario</th>
+                                        <th>Fecha Creación</th>
                                         <th>Estado</th>
                                         <th>Accion</th>
                                     </tr>
@@ -60,11 +80,11 @@
         </main>
 
         <!-- Modal -->
-        <div class="modal fade" id="modal-crear-detalle">
-            <div class="modal-dialog">
-            <form id="formDetalle" class="modal-content" action="detalles/registrar" enctype="multipart/form-data" method="POST">
+        <div class="modal fade" id="modal-crear-formulario">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title fs-5" data-title="Detalle" data-input-condition="inIdDetalle">...</h4>
+                        <h4 class="modal-title fs-5" data-title="Detalle" data-input-condition="inIdDetalle">Crear Formulario</h4>
                         <a type="button" class="btn-dismiss-modal btn-close">
                             <span class="material-symbols-rounded">
                                 close
@@ -72,35 +92,26 @@
                         </a>
                     </div>
                     <div class="modal-body grid-container">
-                            <input value="" type="hidden" id="inIdDetalle" name="inIdDetalle"/>
-                            <div class="col-sm-12">
-                                <label for="nombres">Nombres Detalle(*):</label>
-                                <input type="text" class="form-control form-text" id="vcNombreDetalle" name="vcNombreDetalle" required="required" />
+                        <div class="form-container col-12">
+                            <div class="form-header grid-container">
+                                <div class="col-12">
+                                    <input type="text" id="form-title" placeholder="Título del formulario" class="form-control" required>
+                                </div>
+                                <div class="col-12">  
+                                    <textarea id="form-description" placeholder="Descripción del formulario"></textarea>
+                                </div>
                             </div>
-                            <div class="col-sm-12">
-                                <label for="apellidos">Descripción:</label>
-                                <textarea type="text" class="form-control form-text" id="vcDescDetalle" name="vcDescDetalle"></textarea>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="edad">Precio Soles (*):</label>
-                                <input type="number" class="form-control form-text" id="inSolPrecioDetalle" name="inSolPrecioDetalle" required="required" min="1" value="0"/>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="correo">Precio Dolar:</label>
-                                <input type="number" class="form-control form-text" id="inDolarPrecioDetalle" name="inDolarPrecioDetalle" value="0"/>
-                            </div>
-                            <div class="col-sm-12 drop-zone" data-index="1">
-                                <img class="preview" style="display: none;">
-                                <p class="file-name">Drag and drop or click to replace</p>
-                                <input type="file" class="file-input" name="imagen" accept="image/png, image/jpeg">
-                                <button type="button" class="remove-btn">REMOVE 🗑</button>
-                            </div>
+
+                            <div id="questions-container"></div>
+
+                            <button class="btn btn-primary" onclick="addQuestion()">+ Añadir pregunta</button>
+                        </div>      
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn-dismiss-modal btn btn-secondary">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" class="btn btn-primary" onclick="saveForm()">Guardar</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
         
@@ -110,9 +121,12 @@
         <script src="<?= URL::to("assets/js/global/rutas.api.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/js/global/app.global.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/sweetalert/sweetalert.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/js/modulos/detalles/lista.detalles.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/js/modulos/detalles/registrar.detalles.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/DataTables/datatables.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/DataTables/datatables.responsive.js") ?>" type="text/javascript"></script>
+        
+        <script src="<?= URL::to("assets/js/modulos/detalles/lista.detalles.general.js") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/js/modulos/formularios/form.generator.js") ?>" type="text/javascript"></script>
+
+        
     </body>
 </html>

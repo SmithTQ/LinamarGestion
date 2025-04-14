@@ -269,19 +269,12 @@ HelperFormPrototype = function () {
                         HForm.getFormData.utils.pushObject(elementName, valTemp, entityName);
                     },
                     file: function (form, elementName, entityName) {
-                        //if (form.find('[name="' + elementName + '"]')['prevObject'][0].files[0] == undefined) {
-                            console.log(form.find('[name="' + elementName + '"]')['prevObject'][0].files[0]);
-                            let file = form.find('[name="' + elementName + '"]')['prevObject'][0].files[0];
-                            //const file = input.files[0]; // Obtiene el primer archivo seleccionado
-                            console.log("Nombre del archivo:", file.name);
-                            console.log("Tipo:", file.type);
-                            console.log("Tamaño:", file.size, "bytes");
-                      
-
-                        /* } else {
-                            console.log("No se ha seleccionado ningún archivo.");
-                        } */
-                        let valTemp = form.find('[name="' + elementName + '"]')['prevObject'][0].files[0];
+                        let valTemp;
+                        if (form.find('[name="' + elementName + '"]')['prevObject'][0].files.length == 0) {
+                            valTemp = "";
+                        } else {
+                            valTemp = form.find('[name="' + elementName + '"]')['prevObject'][0].files[0];
+                        }
                         HForm.getFormData.utils.pushObject(elementName, valTemp, entityName);
                     },
                     defaultElement: function (el, elementName, entityName) {

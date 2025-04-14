@@ -1,10 +1,15 @@
 <?php
 
+
 //VISTAS
 Route::get("/", ControladorUsuarios::class);
 Route::get("/listar_usuarios", ControladorUsuarios::class);
 Route::get("/usuarios/form/crear", ControladorUsuarios::class."@formCrearUsuario");
 Route::get("/usuarios/form/edicion/:id", ControladorUsuarios::class."@formEdicionUsuario");
+
+// -- Login
+Route::GET("/login", ControladorAuthentication::class."@index");
+Route::POST("/login", ControladorAuthentication::class."@login");
 
 // -- USUARIOS
 Route::post("/usuarios/registrar", ControladorUsuarios::class."@insertarUsuario");
@@ -19,11 +24,10 @@ Route::post("/distritos/eliminarDistritoLimaPorId", ControladorDistritosLima::cl
 // -- Detalles
 Route::get("/detalles/listar", ControladorDetalles::class."@index");
 Route::get("/detalles/listar_detalles", ControladorDetalles::class."@listarDetalles");
+Route::post("/detalles/consultarDetallePorId", ControladorDetalles::class."@buscarDetallePorId");
 Route::post("/detalles/registrar", ControladorDetalles::class."@registrarDetalle");
-Route::post("/detalles/actualizar", ControladorDetalles::class."@actualizarDistritoLima");
-Route::post("/detalles/consultarDistritoLimaPorId", ControladorDetalles::class."@buscarDistritosLimaPorId");
+Route::post("/detalles/actualizar", ControladorDetalles::class."@actualizarDetalle");
 Route::post("/detalles/eliminarDistritoLimaPorId", ControladorDetalles::class."@eliminarDistritosLimaPorId");
 
-// -- Login
-Route::GET("/login", ControladorAuthentication::class."@index");
-Route::POST("/login", ControladorAuthentication::class."@login");
+// -- Formularios
+Route::get("/formularios/listar", ControladorFormularios::class."@index");

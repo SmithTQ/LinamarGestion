@@ -52,6 +52,13 @@ let vistaListarDistritosLima = {
           },
           listarDistritosLima: {
               beforeSend: function () {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Cargando...",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
                   let tbody = vistaListarDistritosLima.controles.tbodyListaDistritosLima;
                   tbody.html(vistaListarDistritosLima.utils.templates.consultando());
               },

@@ -63,10 +63,10 @@ let vistaListarDetalle = {
                       $('#tablaListaDetalles').DataTable({
                           destroy: true,
                           responsive: true,
-                          order: [[4, 'desc']],
+                          order: [[0, 'desc']],
                           data: datos,
                           columns: [
-                              { data: 'inIdDetalle' },
+                              { data: 'vcCodigoDetalle' },
                               { data: 'vcNombreDetalle' },
                               { data: 'inSolPrecioDetalle' },
                               { data: 'inDolarPrecioDetalle' },
@@ -77,6 +77,16 @@ let vistaListarDetalle = {
                           columnDefs: [
                               {
                                   render: (data, type, row) =>
+                                      `S/. ${data}`,
+                                  targets: 2,
+                              },
+                              {
+                                  render: (data, type, row) =>
+                                      `$ ${data}`,
+                                  targets: 3,
+                              },
+                              {
+                                  render: (data, type, row) =>
                                       `<span class="badge ${
                                           data > 0 ? 'text-bg-success' : 'text-bg-warning'
                                       }">${data > 0 ? 'Habilitado' : 'Inhabilitado'}</span>`,
@@ -85,7 +95,7 @@ let vistaListarDetalle = {
                               {
                                   render: (data, type, row) =>
                                       `<div class="btn-group btn-group-sm float-end">
-                                          <button class="btn btn-dark"><span class="material-symbols-rounded">edit_square</span></button>
+                                          <button class="btn btn-dark btn-modal" data-id-modal="#modal-crear-detalle" onclick="updateDetalle('`+ data.inIdDetalle +`')"><span class="material-symbols-rounded">edit_square</span></button>
                                           <button class="btn btn-dark"><span class="material-symbols-rounded">close</span></button>
                                       </div>`,
                                   targets: 6,

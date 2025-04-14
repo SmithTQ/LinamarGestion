@@ -60,3 +60,86 @@
 .card-footer:last-child {
     border-radius: 0 0 var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius);
 }
+
+
+/* CARD WRAPPER */
+
+.card-wrapper{
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    border-radius: var(--bs-border-radius);
+    box-shadow: var(--bs-card-box-shadow);
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: hidden;
+}
+
+.card-wrapper input[type="checkbox"]{
+    display: none;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    margin-top: 0px;
+}
+
+.card-wrapper img{
+    width: 100%;
+    margin-bottom: -5px;
+    aspect-ratio: 9/11;
+    object-fit: cover;
+    object-position: center;
+}
+
+.text-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    font-size: 1.2rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    box-sizing: border-box;
+  }
+
+.card-wrapper .check-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(33, 150, 243, 0.9); /* Material Blue */
+    color: white;
+    font-size: 30px;
+    padding: 4px;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+.card-wrapper:has(input[type="checkbox"]:checked) .check-icon {
+    display: flex;
+}
+
+.card-wrapper .btn-delete{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.3); /* Material Red */
+    border: none;
+    color: white;
+    font-size: 30px;
+    padding: 4px;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.card-wrapper:hover .btn-delete{
+    display: flex;
+}

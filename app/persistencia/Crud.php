@@ -19,7 +19,6 @@ class Crud{
             }else{
                 $this->sql = $query;
             }
-            
             $sth = $this->conexion->prepare($this->sql);
             $sth->execute($parameters);
             return $sth->fetchAll(PDO::FETCH_OBJ);
@@ -29,7 +28,7 @@ class Crud{
     }
 
     public function first($query = null, $parameters = null) {
-        $lista = $this->get($query = null, $parameters = null);
+        $lista = $this->get($query, $parameters);
         if (is_array($lista) && count($lista) > 0) {
             return $lista[0];
         } else {
@@ -60,7 +59,7 @@ class Crud{
             $campos = rtrim($campos, ",");
 
             $this->sql = "UPDATE {$this->tabla} SET {$campos} {$this->wheres}";
-
+            
             return $this->ejecutar($obj);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -100,10 +99,17 @@ class Crud{
                 $sth->bindValue(":$llave", $valor);
             }
         }
-        $sth->execute();
+        try {
+            $sth->execute();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+       // $sth->execute();
         $this->reiniciarValores();
         return $sth->rowCount();
     }
+
+    
 
     public function lastInsertId() {
 

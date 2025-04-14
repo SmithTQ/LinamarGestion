@@ -1,14 +1,14 @@
 <?php
 
-require_once 'App\Http\Controllers\hooks\Hooks.php';
+require_once 'App\Http\Controllers\Utils\Utils.php';
 
 class ControladorUsuarios extends Controller {
 
-    private $hooks;
+    private $utils;
 
     function __construct() {
         parent::__construct();
-        $this->hooks = new Hooks();
+        $this->utils = new Utils();
     }
 
     public function index() {
@@ -92,12 +92,12 @@ class ControladorUsuarios extends Controller {
 
     private function getRequestUsuario(Request $request) {
 
-        $id = $this->hooks->getUUID();
+        $id = $this->utils->getUUID();
         $contrasena = password_hash($request->vcContrasenaUsuario, PASSWORD_BCRYPT); // Encriptar la contraseña;
 
         $request->inIdUsuario = $id;
         $request->vcContrasenaUsuario = $contrasena;
-        $request->tsFechaCreacion = $this->hooks->todayTimestamp();
+        $request->tsFechaCreacion = $this->utils->todayTimestamp();
         $request->inHabilitado = 1;
 
         return $request;

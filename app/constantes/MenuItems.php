@@ -21,6 +21,10 @@ class MenuItems {
             "Distritos" => [
                 "Uri" => "distritos/listar",
                 "Icon" => "map"
+            ],
+            "Formularios" => [
+                "Uri" => "formularios/listar",
+                "Icon" => "table_view"
             ]
         ]
     ];

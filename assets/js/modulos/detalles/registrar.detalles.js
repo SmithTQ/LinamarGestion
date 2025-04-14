@@ -1,7 +1,7 @@
 let vistaRegistrarDetalles = {
     controles: {
         formDetalle: $('#formDetalle'),
-        idDetalle: $('#idDetalle')
+        idDetalle: $('#inIdDetalle')
     },
     init: function () {
         vistaRegistrarDetalles.eventos();
@@ -33,6 +33,7 @@ let vistaRegistrarDetalles = {
             finalizado: function (respuesta) {
                 if (__app.validarRespuesta(respuesta)) {
                     if (!vistaRegistrarDetalles.controles.idDetalle.length) {
+                        vistaRegistrarDetalles.controles.formDetalle[0].reset();
                         vistaRegistrarDetalles.controles.formDetalle.find('input').val('');
                     }
                     Swal.fire({
@@ -66,9 +67,10 @@ let vistaRegistrarDetalles = {
     peticiones: {
         registrarDetalle: function (obj) {
             let url = RUTAS_API.DETALLES.REGISTRAR_DETALLE;
-            if (vistaRegistrarDetalles.controles.idDetalle.length) {
+            if (vistaRegistrarDetalles.controles.idDetalle.val() !== '') {
                 url = RUTAS_API.DETALLES.ACTUALIZAR_DETALLE;
                 obj.idDetalle = vistaRegistrarDetalles.controles.idDetalle.val();
+                delete obj.inIdDetalle;
             }
 
             __app.post(url, obj)
@@ -84,7 +86,7 @@ let vistaRegistrarDetalles = {
             }
 
             __app.post(RUTAS_API.DETALLES.CONSULTAR_DETALLE_POR_ID, {
-                idDetalle: id,
+                inIdDetalle: id,
             })
                 .beforeSend(vistaRegistrarDetalles.callbacks.peticiones.beforeSend)
                 .complete(vistaRegistrarDetalles.callbacks.peticiones.completo)
@@ -94,4 +96,10 @@ let vistaRegistrarDetalles = {
         }
     }
 };
+
 $(vistaRegistrarDetalles.init);
+
+function updateDetalle(idDetalle) {
+    vistaRegistrarDetalles.controles.idDetalle.val(idDetalle);
+    vistaRegistrarDetalles.peticiones.consultarDetallePorId(idDetalle);
+}

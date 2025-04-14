@@ -3,6 +3,7 @@
 class ListDetalles extends ModeloGenerico {
 
     protected $inIdDetalle;
+    protected $vcCodigoDetalle;
     protected $vcNombreDetalle;
     protected $vcDescDetalle;
     protected $vcUrlImagenDetalle;
@@ -26,6 +27,14 @@ class ListDetalles extends ModeloGenerico {
 
     public function setInIdDetalle($inIdDetalle){
         $this->inIdDetalle = $inIdDetalle;
+    }
+    
+    public function getVcCodigoDetalle(){
+        return $this->vcCodigoDetalle;
+    }
+
+    public function setVcCodigoDetalle($vcCodigoDetalle){
+        $this->vcCodigoDetalle = $vcCodigoDetalle;
     }
 
     public function getVcNombreDetalle(){

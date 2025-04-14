@@ -108,11 +108,21 @@ class Uri {
     }
 
     public function importController($class) {
-        $file = PATH_CONTROLLERS . $class . ".php";
-        if (!file_exists($file)) {
-            throw new Exception("El controlador ($file) no existe.");
+
+        $indirectPath = glob(PATH_CONTROLLERS . "*/" . $class . ".php");
+        $directPath = PATH_CONTROLLERS . $class . ".php";
+
+        $file = $directPath;
+
+        if (!empty($indirectPath)) {
+            $file = $indirectPath[0];
+        } else if (file_exists($file)) {
+            $file = $directPath;
+        } else {
+            throw new Exception("El controlador ($class.php) no existe.");
             return false;
         }
+        
         require_once $file;
         return true;
     }

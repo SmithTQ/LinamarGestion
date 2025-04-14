@@ -1,9 +1,9 @@
 <?php
-require_once 'app/libraries/firebase/JWT/JWT.php';
-require_once 'app/libraries/firebase/JWT/Key.php';
 
+require_once 'app/libraries/JWT/JWT.php';
+require_once 'app/libraries/JWT/Key.php';
 
-class ControladorDistritosLima extends Controller {
+class ControladorFormularios extends Controller {
 
     private $menuGenerator;
     private $authMiddleware;
@@ -16,12 +16,12 @@ class ControladorDistritosLima extends Controller {
 
     public function index() {
         $variables = [
-            "titulo" => "Distritos Lima | LinaMar",
-            "navbar" => $this->view("global/navbar", ["menuItems" => $this->menuItems->items, "activeItem" => "Distritos"]),
-            "header" => $this->view("global/header", ["titulo" => "DISTRITOS"]),
-            "uri" => "distritos/listardistritoslima"
+            "titulo" => "Formularios | LinaMar",
+            "navbar" => $this->view("global/navbar", ["menuItems" => $this->menuItems->items, "activeItem" => "Formularios"]),
+            "header" => $this->view("global/header", ["titulo" => "FORMULARIOS"]),
+            "uri" => "formularios/listar"
         ];
-        return $this->view("distritos/listardistritoslima", $variables);
+        return $this->view("formularios/listarformularios", $variables);
     }
 
     public function formCrearDistritoLima() {

@@ -2,6 +2,11 @@
 
 /* LINES HR */
 
+.disabled {
+    pointer-events: none;
+    opacity: 0.5; 
+}
+
 hr {
     background-color: currentColor;
     border: 0;
